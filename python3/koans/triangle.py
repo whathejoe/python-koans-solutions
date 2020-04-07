@@ -16,11 +16,21 @@
 # and
 #   about_triangle_project_2.py
 #
-def triangle(a, b, c):
-    l = len(set([a, b, c]))
-    if (l == 1): return 'equilateral'
-    elif (l == 2): return 'isosceles'
-    else: return 'scalene'
+def triangle(*sides):
+    if any(s <= 0 for s in sides):
+        raise TriangleError
+
+    ordered = sorted(sides)
+    if ordered[0] + ordered[1] <= ordered[2]:
+        raise TriangleError
+
+    l = len(set(sides))
+    if (l == 1):
+        return 'equilateral'
+    elif (l == 2):
+        return 'isosceles'
+    else:
+        return 'scalene'
 
 # Error class used in part 2.  No need to change this code.
 class TriangleError(Exception):
