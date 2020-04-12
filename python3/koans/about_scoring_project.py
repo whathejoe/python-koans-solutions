@@ -33,8 +33,31 @@ from runner.koan import *
 # Your goal is to write the score method.
 
 def score(dice):
-    # You need to write this method
-    pass
+    score = 0
+
+    if len(dice) == 0: return score
+
+    rollDict = dict()
+
+    for roll in dice:
+        if roll in rollDict.keys():
+            rollDict[roll] += 1
+        else:
+            rollDict[roll] = 1
+
+    for roll in rollDict.keys():
+        count = rollDict[roll];
+        trios = count // 3
+        singles = count % 3
+
+        if roll == 1:
+            score += trios * 1000 + singles * 100
+        elif roll == 5:
+            score += trios * 500 + singles * 50
+        else:
+            score += trios * 100 * roll
+
+    return score
 
 class AboutScoringProject(Koan):
     def test_score_of_an_empty_list_is_zero(self):
